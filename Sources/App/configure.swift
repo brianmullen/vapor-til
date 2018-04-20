@@ -28,6 +28,10 @@ public func configure(
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
 
+    var commandConfig = CommandConfig.default()
+    commandConfig.use(RevertCommand.self, as: "revert")
+    services.register(commandConfig)
+    
     // Configure a SQLite database
 //    let sqlite: SQLiteDatabase
 //    if env.isRelease {
@@ -70,6 +74,7 @@ public func configure(
     /// Configure migrations
     var migrations = MigrationConfig()
 //    migrations.add(model: Acronym.self, database: .sqlite)
+    migrations.add(model: User.self, database: .psql)
     migrations.add(model: Acronym.self, database: .psql)
 //    migrations.add(model: Acronym.self, database: .mysql)
     services.register(migrations)
