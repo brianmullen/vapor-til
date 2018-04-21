@@ -20,4 +20,3 @@ let package = Package(
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
 )
-
